@@ -5,7 +5,13 @@ const port = 1337;
 
 // Add a route
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    const data = {
+        data: {
+            msg: "Hello World"
+        }
+    };
+
+    res.json(data);
 });
 
 // Start up server
