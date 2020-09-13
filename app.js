@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const app = express();
+
+const index = require('./routes/index');
+const hello = require('./routes/hello');
+
 const port = 1337;
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -24,53 +28,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Add a route
-app.get("/", (req, res) => {
-    const data = {
-        data: {
-            msg: "Hello World"
-        }
-    };
+app.use('/hello', hello);
 
-    res.json(data);
-});
-
-// Testing routes with method
-app.get("/user", (req, res) => {
-    res.json({
-        data: {
-            msg: "Got a GET request, sending back default 200"
-        }
-    });
-});
-
-app.post("/user", (req, res) => {
-    res.status(201).json({
-        data: {
-            msg: "Got a POST request, sending back 201 Created"
-        }
-    });
-});
-
-app.put("/user", (req, res) => {
-    // PUT requests should return 204 No Content
-    res.status(204).send();
-});
-
-app.delete("/user", (req, res) => {
-    // DELETE requests should return 204 No Content
-    res.status(204).send();
-});
-
-app.get("/hello/:msg", (req, res) => {
-    const data = {
-        data: {
-            msg: req.params.msg
-        }
-    };
-
-    res.json(data);
-});
+app.use('/', index);
 
 // Add routes for 404 and error handling
 // Catch 404 and forward to error handler
