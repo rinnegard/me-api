@@ -65,6 +65,7 @@ const auth = {
 
         db.get("SELECT * FROM users WHERE email IS (?)",
             email, (err, rows) => {
+                console.log(rows);
                 if (err) {
                     return res.status(500).json({
                         errors: {
@@ -87,27 +88,27 @@ const auth = {
                     });
                 }
 
-                bcrypt.compare(password, row.password, function(err, res) {
+                bcrypt.compare(password, rows.password, function(err, result) {
+                    console.log(result);
                     if (err) {
-                        errors: {
-                            status: 500,
-                            source: "/login",
-                            title: "bcrypt error",
-                            detail: "bcrypt error"
-                        }
-                    }
-
-                    if (res) {
-                        return res.json({
-                            data: {
-                                type: "success",
-                                message: "User logged in",
-                                user: payload,
-                                token: jwtToken
+                        return res.status(500).json({
+                            errors: {
+                                status: 500,
+                                source: "/login",
+                                title: "bcrypt error",
+                                detail: "bcrypt error"
                             }
                         });
                     }
 
+                    if (result) {
+                        return res.json({
+                            data: {
+                                type: "success",
+                                message: "User logged in"
+                            }
+                        });
+                    }
 
                     return res.status(401).json({
                         errors: {
@@ -118,14 +119,6 @@ const auth = {
                         }
                     });
                 })
-
-
-
-                return res.status(201).json({
-                    data: {
-                        message: "User successfully logged in."
-                    }
-                });
             });
     },
 

@@ -8,6 +8,7 @@ const app = express();
 const index = require('./routes/index');
 const hello = require('./routes/hello');
 const register = require('./routes/register');
+const login = require('./routes/login');
 
 const port = 1337;
 
@@ -29,6 +30,8 @@ app.use((req, res, next) => {
     next();
 });
 
+
+app.use('/login', login);
 app.use('/register', register);
 app.use('/hello', hello);
 
