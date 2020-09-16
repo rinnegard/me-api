@@ -1,7 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database("./db/texts.sqlite");
 const bcrypt = require('bcryptjs');
+require('dotenv').config()
 
+const jwt = require('jsonwebtoken');
+
+const secret = process.env.JWT_SECRET;
 
 const auth = {
     register: function(res, email, password) {
