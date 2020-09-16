@@ -7,6 +7,7 @@ const app = express();
 
 const index = require('./routes/index');
 const hello = require('./routes/hello');
+const register = require('./routes/register');
 
 const port = 1337;
 
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/register', register);
 app.use('/hello', hello);
 
 app.use('/', index);
@@ -56,6 +58,7 @@ app.use((err, req, res, next) => {
         ]
     });
 });
+
 
 
 // Start up server
