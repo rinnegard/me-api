@@ -4,8 +4,7 @@ const router = express.Router();
 
 
 router.post('/', function(req, res, next) {
-    auth.register(res, req.body.email, req.body.password)
-    res.json(data);
+    auth.register(res, req.body.email, req.body.password);
 });
 
 module.exports = router;
