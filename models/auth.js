@@ -126,26 +126,24 @@ const auth = {
             });
     },
 
-verify: function(req, res, next) {
-    const token = req.headers['x-access-token'];
+    verify: function(req, res, next) {
+        const token = req.headers['x-access-token'];
 
-    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
-        if (err) {
-            return res.status(401).json({
-                errors: {
-                    status: 401,
-                    title: "Wrong token",
-                    detail: "Token is incorrect."
-                }
-            });
-        }
+        jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
+            if (err) {
+                return res.status(500).json({
+                    errors: {
+                        status: 500,
+                        title: "Wrong token",
+                        detail: "Token is incorrect."
+                    }
+                });
+            }
 
-        // Valid token send on the request
-        next();
-    });
-}
-
-
+            // Valid token send on the request
+            next();
+        });
+    }
 }
 
 module.exports = auth;
