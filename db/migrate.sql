@@ -3,3 +3,9 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(60) NOT NULL,
     UNIQUE(email)
 );
+
+CREATE TABLE IF NOT EXISTS reports (
+    week INT NOT NULL,
+    content TEXT NOT NULL,
+    UNIQUE(week)
+);
