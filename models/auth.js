@@ -106,10 +106,14 @@ const auth = {
                     }
 
                     if (result) {
+                        const payload = { email: email };
+                        const token = jwt.sign(payload, secret, { expiresIn: '24h'});
                         return res.json({
                             data: {
                                 type: "success",
-                                message: "User logged in"
+                                message: "User logged in",
+                                user: payload,
+                                token: token
                             }
                         });
                     }

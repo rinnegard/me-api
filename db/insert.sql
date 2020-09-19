@@ -1,4 +1,4 @@
-INSERT INTO reports (week, content)
+REPLACE INTO reports (week, content)
 VALUES
     (
         1,
@@ -71,13 +71,11 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify"
-    ),
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify"),
     (
         2,
         "[Github](https://github.com/rinnegard/me-api).
 
-        ### Scripts
+### Scripts
 
-        Use `npm install` to install dependencies then use `npm start` to run."
-    );
+Use `npm install` to install dependencies then use `npm start` to run.");

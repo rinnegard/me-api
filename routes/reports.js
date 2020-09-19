@@ -1,25 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const reports = require('../models/reports.js');
+const auth = require('../models/auth.js');
 
-router.get('week/:id', function(req, res, next) {
-    const data = {
-        data: {
-            msg: req.params.id
-        }
-    };
-
-    res.json(data);
+router.get('/week/:id', function(req, res, next) {
+    reports.get(res, req.params.id)
 });
 
-router.post('/', function(req, res, next) {
-    const data = {
-        data: {
-            msg: req.params.id
-        }
-    };
+router.get('/', function(req, res, next) {
+    reports.getAll(res);
+});
 
-    res.json(data);
+router.post('/',
+    // function(req, res, next) {
+    //     auth.verify(req, res, next)
+    // },
+    function(req, res, next) {
+    reports.add(res, req.body.week, req.body.content)
 });
 
 module.exports = router;
