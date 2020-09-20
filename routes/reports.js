@@ -12,9 +12,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/',
-    // function(req, res, next) {
-    //     auth.verify(req, res, next)
-    // },
+    function(req, res, next) {
+        auth.verify(req, res, next)
+    },
     function(req, res, next) {
     reports.add(res, req.body.week, req.body.content)
 });
