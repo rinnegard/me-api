@@ -16,7 +16,8 @@ router.post('/',
         auth.verify(req, res, next)
     },
     function(req, res, next) {
-    reports.add(res, req.body.week, req.body.content)
+        console.log(req.body);
+        reports.add(res, req.body.week, req.body.content)
 });
 
 module.exports = router;

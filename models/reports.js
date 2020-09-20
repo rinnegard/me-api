@@ -5,7 +5,6 @@ const reports = {
     getAll: function(res) {
         db.all("SELECT * FROM reports",
         (err, result) => {
-            console.log(result);
             if (err) {
                 return res.status(500).json({
                     errors: {
@@ -28,7 +27,6 @@ const reports = {
         db.get("SELECT * FROM reports WHERE week IS (?)",
         week,
         (err, row) => {
-            console.log(row);
             if (err) {
                 return res.status(500).json({
                     errors: {
@@ -48,6 +46,7 @@ const reports = {
         });
     },
     add: function(res, week, content) {
+
         db.run("REPLACE INTO reports (week, content) VALUES(?, ?)",
         week,
         content,

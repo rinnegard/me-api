@@ -131,9 +131,9 @@ const auth = {
     },
 
     verify: function(req, res, next) {
-        console.log(req);
         console.log(req.headers);
-        const token = req.headers['x-access-token'];
+        const token = req.headers['authorization'].split(" ")[1];
+        console.log(token);
 
         jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
             if (err) {
@@ -146,7 +146,6 @@ const auth = {
                 });
             }
 
-            // Valid token send on the request
             next();
         });
     }
