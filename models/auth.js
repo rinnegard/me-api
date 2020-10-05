@@ -69,7 +69,6 @@ const auth = {
 
         db.get("SELECT * FROM users WHERE email IS (?)",
             email, (err, rows) => {
-                console.log(rows);
                 if (err) {
                     return res.status(500).json({
                         errors: {

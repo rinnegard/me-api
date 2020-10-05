@@ -9,10 +9,23 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Auth', () => {
+    before(() => {
+        const user = {
+            email: "success@test.se",
+            password: "test"
+        }
+        chai.request(server)
+            .post("/register")
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(201);
+                res.body.should.be.an("object");
+            });
+    })
     describe('POST /register', () => {
         it('201 HAPPY PATH', (done) => {
             const user = {
-                email: "test@test.se",
+                email: "new@test.se",
                 password: "test"
             }
             chai.request(server)
@@ -26,10 +39,27 @@ describe('Auth', () => {
                 });
         });
     });
-    describe('POST /login', () => {
-        it('201 HAPPY PATH', (done) => {
+    describe('POST /register', () => {
+        it('500 db error user exists', (done) => {
             const user = {
-                email: "test@test.se",
+                email: "success@test.se",
+                password: "test"
+            }
+            chai.request(server)
+                .post("/register")
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(500);
+                    res.body.errors.title.should.eq("Database error");
+
+                    done();
+                });
+        });
+    });
+    describe('POST /login', () => {
+        it('200 HAPPY PATH', (done) => {
+            const user = {
+                email: "success@test.se",
                 password: "test"
             }
             chai.request(server)
