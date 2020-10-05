@@ -8,7 +8,7 @@ chai.should();
 
 chai.use(chaiHttp);
 
-describe('Reports', () => {
+describe('Auth', () => {
     describe('POST /register', () => {
         it('201 HAPPY PATH', (done) => {
             const user = {
@@ -20,6 +20,23 @@ describe('Reports', () => {
                 .send(user)
                 .end((err, res) => {
                     res.should.have.status(201);
+                    res.body.should.be.an("object");
+
+                    done();
+                });
+        });
+    });
+    describe('POST /login', () => {
+        it('201 HAPPY PATH', (done) => {
+            const user = {
+                email: "test@test.se",
+                password: "test"
+            }
+            chai.request(server)
+                .post("/login")
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200);
                     res.body.should.be.an("object");
 
                     done();
