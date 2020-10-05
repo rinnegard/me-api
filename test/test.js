@@ -24,15 +24,17 @@ describe('Reports', () => {
         });
     });
 
-    describe('GET /reports/week/2', () => {
+    describe('GET /reports', () => {
         it('201 HAPPY PATH', (done) => {
             chai.request(server)
-                .get("/reports/week/2")
+                .get("/reports")
                 .end((err, res) => {
+                    console.log(res.body.data.result);
                     res.should.have.status(201);
                     res.body.should.be.an("object");
                     res.body.data.should.be.an("object");
-                    res.body.data.result.week.should.be.equal(2);
+                    res.body.data.result.should.be.an("array");
+                    res.body.data.result.length.should.be.above(0);
 
                     done();
                 });
