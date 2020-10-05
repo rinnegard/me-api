@@ -73,4 +73,21 @@ describe('Auth', () => {
                 });
         });
     });
+    describe('POST /login', () => {
+        it('200 HAPPY PATH', (done) => {
+            const user = {
+                email: "success@test.se",
+                password: "incorrect"
+            }
+            chai.request(server)
+                .post("/login")
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(401);
+                    res.body.errors.title.should.eq("Wrong password");
+
+                    done();
+                });
+        });
+    });
 });
