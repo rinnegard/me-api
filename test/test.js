@@ -40,3 +40,19 @@ describe('Reports', () => {
         });
     });
 });
+
+describe('Index', () => {
+    describe('GET /', () => {
+        it('200 HAPPY PATH', (done) => {
+            chai.request(server)
+                .get("/")
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.an("object");
+                    res.body.content.should.be.an("string");
+
+                    done();
+                });
+        });
+    });
+});
