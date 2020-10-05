@@ -38,16 +38,5 @@ describe('Reports', () => {
                     done();
                 });
         });
-    // describe('POST /reports', () => {
-    //     it('201 HAPPY PATH', (done) => {
-    //         chai.request(server)
-    //             .post("/reports")
-    //             .end((err, res) => {
-    //                 console.log(res.body.data);
-    //                 res.should.have.status(201);
-    //                 res.body.should.be.an("object");
-    //                 done();
-    //             });
-    //     });
     });
 });

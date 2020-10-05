@@ -18,10 +18,11 @@ describe('Auth', () => {
             .post("/register")
             .send(user)
             .end((err, res) => {
+
                 res.should.have.status(201);
                 res.body.should.be.an("object");
             });
-    })
+    });
     describe('POST /register', () => {
         it('201 HAPPY PATH', (done) => {
             const user = {
@@ -74,7 +75,7 @@ describe('Auth', () => {
         });
     });
     describe('POST /login', () => {
-        it('200 HAPPY PATH', (done) => {
+        it('401 Wrong password', (done) => {
             const user = {
                 email: "success@test.se",
                 password: "incorrect"
@@ -88,6 +89,35 @@ describe('Auth', () => {
 
                     done();
                 });
+        });
+    });
+    //Testing verifying and posting
+    describe('POST /reports', () => {
+        it('201 HAPPY PATH', (done) => {
+            const user = {
+                email: "success@test.se",
+                password: "test"
+            }
+            const content = {
+                week: 4,
+                content: "Test post report"
+            }
+            chai.request(server)
+                .post("/login")
+                .send(user)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    let token = res.body.data.token;
+                    chai.request(server)
+                        .post("/reports")
+                        .send(content)
+                        .set("Authorization", `Bearer ${token}`)
+                        .end((err, res) => {
+                            res.should.have.status(201);
+                        });
+                    done();
+                });
+
         });
     });
 });
